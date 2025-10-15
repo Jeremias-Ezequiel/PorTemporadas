@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PorTemporadas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="productos-carrusel" id="productos-carrusel">
+        <div class="productos-slide" id="productos-slide">
+            <img src="assets/carrusel/product1.jpg" alt="Heladera Inteligente" title="Heladera Inteligente">
+            <img src="assets/carrusel/product2.jpg" alt="Lavarropas" title="Lavarropas">
+            <img src="assets/carrusel/product3.jpg" alt="Televisor 32" title="Televisor 32">
+            <img src="assets/carrusel/product4.jpg" alt="Extractora de Cocina" title="Extractora de Cocina">
+            <img src="assets/carrusel/product5.jpg" alt="Aire Acondicionado" title="Aire Acondicionado">
+            <img src="assets/carrusel/product6.jpg" alt="Batidora de mano" title="Batidora de mano">
+            <img src="assets/carrusel/product7.jpg" alt="Freidora de Aire" title="Freidora de Aire">
+            <img src="assets/carrusel/product8.jpg" alt="Calefactor" title="Calefactor">
+            <img src="assets/carrusel/product9.jpg" alt="Cocina Dean" title="Cocina Dean">
+            <img src="assets/carrusel/product10.jpg" alt="Aspiradora de Tacho" title="Aspiradora de Tacho">
+            <img src="assets/carrusel/product11.jpg" alt="Microondas Atma" title="Microondas Atma">
+            <img src="assets/carrusel/product12.jpg" alt="Termotanque" title="Termotanque">
+        </div>
+    </header>
+    <main>
+        <div class="bg-main">
+            <section class="nav-sesion">
+                <a class="nav-button">Test</a>
+                <a class="nav-button" href="register.html">Registrarse</a>
+            </section>
+
+            <section class="form-container">
+                <legend><img src="assets/logo1.png" alt="PorTemporadas Logo"></legend>
+                <form action="" method="post" class="form">
+                    <div class="form-input">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Ingrese su correo" autofocus>
+                    </div>
+                    <div class="form-input">
+                        <label for="pass">Contraseña:</label>
+                        <input type="password" id="pass" name="pass" placeholder="Ingrese su contraseña">
+                    </div>
+                    <button type="submit">Iniciar sesión</button>
+                    <p>Aún no se ha registrado? <a href="register.html">Registrarse</a></p>
+                    <p><a href="#" onclick="alert('Esta funcionalidad está en desarrollo')">Olvidé mi contraseña</a></p>
+                </form>
+            </section>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+
+
+    <script>
+        const track = document.getElementById('productos-slide').cloneNode(true);
+        document.getElementById('productos-carrusel').appendChild(track);
+    </script>
+</body>
+
+</html>
