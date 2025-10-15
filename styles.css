@@ -26,7 +26,6 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    padding: 10px;
 }
 
 /*HERO*/
@@ -48,6 +47,7 @@ body{
     overflow: hidden;
     white-space: nowrap;
     margin-top: 20px;
+    max-width: 100%;
 }
 
 .productos-slide{
@@ -122,6 +122,7 @@ body{
     padding: 50px 30px 30px 30px;
     border-radius: 10px;
     color: var(--white);
+    margin: 0px 0px 50px 0px;
 }
 
 .form .form-input{
@@ -165,3 +166,16 @@ body{
         box-shadow: 0 1px 0 0 var(--white);
     }
 }
+
+/*Configuracion de pagina principal*/
+
+.container-gral{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "nav header"
+        "nav main"
+        "nav footer";
+}
+
