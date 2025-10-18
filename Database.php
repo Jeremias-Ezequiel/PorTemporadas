@@ -5,31 +5,20 @@ class Database
     private $servidor = "localhost";
     private $user = "root";
     private $pass = "";
-    private $dbName = "temporadas";
+    private $dbName;
     private $con;
 
     public function __construct($dbName)
     {
+        $this->con = null;
         $this->dbName = $dbName;
-        $this->con = mysqli_connect($this->servidor, $this->user, $this->pass, $this->dbName);
-        if (!$this->con) {
-            die("Error de conexión");
-        }
+        $dsn = "mysql:host=$this->servidor;dbname=$this->dbName";
+        $this->con = new PDO($dsn, $this->user, $this->pass);
+        $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function getCon()
     {
         return $this->con;
-    }
-
-    public function query($query)
-    {
-        $result = mysqli_query($this->con, $query);
-
-        if (!$result) {
-            echo "Error en la consulta";
-        }
-
-        return $result;
     }
 }
