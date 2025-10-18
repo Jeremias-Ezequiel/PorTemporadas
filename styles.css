@@ -21,8 +21,13 @@
     min-height: 100dvh;
     grid-template-rows: auto 1fr auto;
 
+<<<<<<< HEAD
     background-image: linear-gradient(rgba(0,0,0, 0.9), rgba(0,0,0,0.9)),
     url("assets/background-main.jpg");
+=======
+    background-image: linear-gradient(rgba(0,0,0, 0.7), rgba(0,0,0,0.7)),
+    url("assets/background-main.webp");
+>>>>>>> e164d8f (update: Cambiamos el background image por uno más ligero)
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -60,7 +65,7 @@ a{
 }
 
 .productos-slide{
-    animation: scrollX 20s linear infinite;
+    animation: scrollX 10s linear infinite;
 
     img{
         height: 120px;
@@ -114,8 +119,8 @@ a{
 }
 
 .form-container img{
-    height: 130px;
-    transform: translateY(40px);
+    height: 200px;
+    
      filter: 
         drop-shadow(0 0 8px rgba(0, 188, 212, 0.7)) /* Brillo cian, sigue la forma del logo */
         drop-shadow(0 0 15px rgba(0, 188, 212, 0.4));
