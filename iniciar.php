@@ -2,7 +2,24 @@
 require_once 'Database.php';
 
 if (isset($_POST['pass']) && isset($_POST['email'])) {
-    $query = "SELECT email FROM usuario WHERE email = $_POST[email]";
+    $query = "SELECT id FROM usuario WHERE email = :email";
 
-    header("Location: inicio.html");
+    $db = new Database("temporadas");
+    $con = $db->getCon();
+
+    $stmt = $con->prepare($query);
+    $data = [
+        ":email" => $_POST['email'],
+    ];
+
+    if ($stmt->execute($data)) {
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            header("Location: inicio.html");
+            die();
+        } else {
+            header("Location: index.html?error=noUser");
+        }
+    }
 }

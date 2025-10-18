@@ -1,30 +1,35 @@
 <?php
 
-if (isset($_POST['email'])) {
-    $pass = $_POST['pass'];
-    $rep_pass = $_POST['rep_pass'];
 
-    if ($pass != $rep_pass) {
-        header("Location: register.html?error=nomatch&$pass&$rep_pass");
+
+if (isset($_POST['email'])) {
+    if ($_POST['pass'] !== $_POST['rep_pass']) {
+        header("Location: register.html?error=noMatch");
         die();
     }
 
-    $name = $_POST['name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
+    require_once "Database.php";
+    $query = "INSERT INTO usuario VALUES (default,:nombre,:apellido,:email,:password);";
 
-    require_once 'Database.php';
+    $db = new Database("temporadas");
+    $con = $db->getCon();
 
-    $query = "INSERT INTO usuario VALUES (default,'$name','$last_name','$email','$pass');";
+    $stmt = $con->prepare($query);
 
-    require_once 'Database.php';
+    $data = [
+        ":nombre" => $_POST['name'],
+        ":apellido" => $_POST['last_name'],
+        ":email" => $_POST['email'],
+        ":password" => $_POST['rep_pass'],
+    ];
 
-    $con = new Database("temporadas");
-
-    $result = $con->query($query);
-
-    if ($result === true) {
-        header("Location: index.html?success");
+    try {
+        if ($stmt->execute($data)) {
+            header("Location: index.html?status=regSuccess");
+            die();
+        }
+    } catch (PDOException $e) {
+        header("Location: register.html?error=noReg");
         die();
     }
 }
