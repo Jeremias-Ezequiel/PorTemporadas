@@ -21,7 +21,7 @@
     min-height: 100dvh;
     grid-template-rows: auto 1fr auto;
 
-    background-image: linear-gradient(rgba(0,0,0, 0.7), rgba(0,0,0,0.7)),
+    background-image: linear-gradient(rgba(0,0,0, 0.9), rgba(0,0,0,0.9)),
     url("assets/background-main.jpg");
     background-repeat: no-repeat;
     background-size: cover;
