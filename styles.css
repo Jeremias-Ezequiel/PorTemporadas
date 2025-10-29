@@ -1,12 +1,15 @@
 :root{
     --white: #ffff;
     --black: #000;
+
     --blue: #1A2F4B;
     --blue-light: #5B7291;
     
     --cyan: #00BCD4;
     --cyan-light: #64DDEB; 
 
+    --green-soft: #D4EDDA;
+    --red-soft: #F8D7DA; 
 }
 
 *{
@@ -198,6 +201,7 @@ a{
 }
 
 .main-nav{
+    position: relative;
     grid-area: nav;
     background-color: var(--blue);
     display: flex;
@@ -217,6 +221,13 @@ a{
     cursor: pointer;
 }
 
+.main-nav #cerrar-sesion{
+    background-color: var(--cyan-light);
+    color: var(--black);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 
 /*MAIN*/ 
 .main{
