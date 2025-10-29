@@ -15,13 +15,16 @@ if ($stmt->execute()) {
         while ($res = $stmt->fetch()) {
 ?>
             <div class="producto-card">
+
                 <h3><?= $res['nombre'] ?></h3>
                 <p>Cantidad: <?= $res['cantidad_total'] ?></p>
                 <div>
-                    <form action="" method="post">
-                        <input type="number" placeholder="Ingrese cantidad a ingresar o eliminar">
-                        <button>Agregar</button>
-                        <button>Quitar</button>
+                    <form action="?seccion=verStock" method="post" class="form-actualizar">
+                        <input type="hidden" name="id" value="<?= $res['id'] ?>">
+                        <input type="hidden" name="cant_actual" value="<?= $res['cantidad_total']; ?>">
+                        <input type="number" name="cantidad" placeholder="Ingrese cantidad a ingresar o eliminar">
+                        <button name="agregar">Agregar</button>
+                        <button name="quitar">Quitar</button>
                     </form>
                 </div>
             </div>
