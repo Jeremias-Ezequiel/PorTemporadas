@@ -10,6 +10,9 @@
 
     --green-soft: #D4EDDA;
     --red-soft: #F8D7DA; 
+
+    --sinStock: #FADBD8;
+    --alertaStock: #FDEBD0; 
 }
 
 *{
@@ -216,7 +219,7 @@ a{
 .main-nav li{
     background-color: var(--blue-light);
     padding: 5px;
-    margin: 2px;
+    margin: 0px 10px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -255,3 +258,37 @@ a{
     grid-area: footer;
     background-color: purple;
 }
+
+/* STOCK*/
+
+.listar-productos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0px ;
+}
+
+.producto-card{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--blue-light);
+    color: white;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.producto-card button{
+    padding: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*ALERTA DE STOCK*/

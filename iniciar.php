@@ -16,7 +16,7 @@ if (isset($_POST['pass']) && isset($_POST['email'])) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            header("Location: inicio.html");
+            header("Location: inicio.php");
             die();
         } else {
             header("Location: index.html?error=noUser");
