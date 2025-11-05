@@ -13,11 +13,11 @@ CREATE TABLE usuario (
 
 CREATE TABLE producto (
     id INT(7) NOT NULL AUTO_INCREMENT,
-    sku VARCHAR(30) NOT NULL,
+    sku VARCHAR(30),
     nombre VARCHAR(60) NOT NULL,
     descripcion VARCHAR(250),
-    cantidad_total INT(7) UNSIGNED NOT NULL DEFAULT 0, -- No puede ser menor a cero,
+    cantidad INT(7) UNSIGNED NOT NULL DEFAULT 0, -- No puede ser menor a cero,
     stock_minimo INT(7) UNSIGNED NOT NULL DEFAULT 0,-- NO puede ser menor a cero,
-    precio DECIMAL(8,2) UNSIGNED NOT NULL DEFAULT 0.0,
+    precio DECIMAL(8,2) UNSIGNED DEFAULT 0.0,
     PRIMARY KEY(id)
 );

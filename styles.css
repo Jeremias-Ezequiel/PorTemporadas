@@ -13,6 +13,8 @@
 
     --sinStock: #FADBD8;
     --alertaStock: #FDEBD0; 
+
+    --red: red;
 }
 
 *{
@@ -301,4 +303,26 @@ a{
 
 .form-actualizar input{
     padding: 3px;
+}
+
+.msg-error{
+    background-color: var(--red);
+    color: var(--white);
+    font-weight: bold;
+    font-size: 30px;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.msg-exito{
+    background-color: var(--green-soft);
+    color: var(--black);
+    font-weight: bold;
+    font-size: 30px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 10px;
+    text-transform: uppercase;
 }

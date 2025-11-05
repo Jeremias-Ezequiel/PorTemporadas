@@ -1,3 +1,32 @@
+<?php
+require_once __DIR__ . "/controllers/UsuarioController.php";
+require_once __DIR__ . "/models/Usuario.php";
+
+$usuarioController = new UsuarioController();
+$mensaje;
+
+if (isset($_POST['registrar'])) {
+    if ($_POST['pass'] == $_POST['rep_pass']) {
+        try {
+
+            $user = new Usuario($_POST['name'], $_POST['last_name'], $_POST['email'], $_POST['pass']);
+            $resultado = $usuarioController->registrar($user);
+
+            if ($resultado['status'] == 'success') {
+                $mensaje_exito = $resultado['message'];
+            }
+
+            if ($resultado['status'] == 'error') {
+                $mensaje_error = $resultado['message'];
+            }
+        } catch (InvalidArgumentException $e) {
+            $mensaje_error = $e->getMessage();
+        }
+    } else {
+        $mensaje_error = "La contraseña no coinciden!";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,13 +56,13 @@
     </header>
     <main>
         <section class="nav-sesion">
-            <a class="nav-button" href="index.html">Iniciar Sesión</a>
-            <a class="nav-button" href="register.html">Registrarse</a>
+            <a class="nav-button" href="inicioSesion.php">Iniciar Sesión</a>
+            <a class="nav-button" href="registro.php">Registrarse</a>
         </section>
 
         <section class="form-container">
             <legend><img src="assets/logo1.png" alt="PorTemporadas Logo"></legend>
-            <form action="register.php" method="post" class="form" autocomplete="off">
+            <form action="?" method="post" class="form" autocomplete="off">
                 <div class="form-input">
                     <label for="name">Nombre:</label>
                     <input type="text" id="name" name="name" placeholder="Ingrese su nombre" autofocus required>
@@ -54,7 +83,19 @@
                     <label for="rep_pass">Repetir Contraseña:</label>
                     <input type="password" id="rep_pass" name="rep_pass" placeholder="Ingrese su contraseña nuevamente" required>
                 </div>
-                <button type="submit">Registrarse</button>
+                <button type="submit" name="registrar">Registrarse</button>
+                <?php
+                if (isset($mensaje_error) && !empty($mensaje_error)) {
+                ?>
+                    <p class="msg-error"><?= $mensaje_error ?></p>
+                <?php
+                } elseif (isset($mensaje_exito) && !empty($mensaje_exito)) {
+                ?>
+                    <p class="msg-exito"><?= $mensaje_exito ?></p>
+
+                <?php
+                }
+                ?>
             </form>
         </section>
     </main>

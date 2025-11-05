@@ -1,3 +1,24 @@
+<?php
+
+require_once __DIR__ . "/controllers/UsuarioController.php";
+
+$usuarioController = new UsuarioController();
+
+if (isset($_POST['iniciar'])) {
+    $user = $usuarioController->obtenerUsuario($_POST['email']);
+    if (!$user) {
+        $mensaje_error = "El usuario no existe!";
+    } else {
+        var_dump($user);
+        if ($_POST['pass'] === $user['password']) {
+            header('Location: inicio.php');
+            die();
+        } else {
+            $mensaje_error = "La contraseña no coincide";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,13 +49,13 @@
     <main>
         <div class="bg-main">
             <section class="nav-sesion">
-                <a class="nav-button" href="index.html">Iniciar Sesión</a>
-                <a class="nav-button" href="register.html">Registrarse</a>
+                <a class="nav-button" href="inicioSesion.php">Iniciar Sesión</a>
+                <a class="nav-button" href="registro.php">Registrarse</a>
             </section>
 
             <section class="form-container">
                 <legend><img src="assets/logo1.png" alt="PorTemporadas Logo"></legend>
-                <form action="iniciar.php" method="post" class="form" autocomplete="off">
+                <form action="?" method="post" class="form" autocomplete="off">
                     <div class="form-input">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" placeholder="Ingrese su correo" autofocus required>
@@ -43,8 +64,15 @@
                         <label for="pass">Contraseña:</label>
                         <input type="password" id="pass" name="pass" placeholder="Ingrese su contraseña" required>
                     </div>
-                    <button type="submit">Iniciar sesión</button>
+                    <button type="submit" name="iniciar">Iniciar sesión</button>
                     <p><a href="#" onclick="alert('Esta funcionalidad está en desarrollo')">Olvidé mi contraseña</a></p>
+                    <?php
+                    if (isset($mensaje_error)) {
+                    ?>
+                        <p class="msg-error"><?= $mensaje_error ?></p>
+                    <?php
+                    }
+                    ?>
                 </form>
             </section>
         </div>

@@ -1,4 +1,4 @@
-INSERT INTO producto (sku, nombre, descripcion, cantidad_total, stock_minimo, precio) VALUES
+INSERT INTO producto (sku, nombre, descripcion, cantidad, stock_minimo, precio) VALUES
 ('HEL-SAM-001', 'Heladera Samsung 400L', 'Heladera no-frost con freezer, color plata. Eficiencia A+.', 15, 5, 250000.00),
 ('LAV-DRE-002', 'Lavarropas Drean 8kg', 'Lavarropas carga frontal, 1200 RPM, 23 programas.', 25, 10, 180000.00),
 ('TV-LG-003', 'Smart TV LG 55" 4K', 'TV 55 pulgadas UHD 4K, HDR, WebOS.', 12, 3, 310000.00),
