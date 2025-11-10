@@ -9,7 +9,8 @@ class UsuarioController
 
     public function __construct()
     {
-        $this->con = new Database()->getCon();
+        $db = new Database();
+        $this->con = $db->getCon();
     }
 
     public function registrar(Usuario $user)

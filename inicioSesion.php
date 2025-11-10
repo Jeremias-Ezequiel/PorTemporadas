@@ -11,7 +11,7 @@ if (isset($_POST['iniciar'])) {
     } else {
         var_dump($user);
         if ($_POST['pass'] === $user['password']) {
-            header('Location: inicio.php');
+            header('Location: index.php');
             die();
         } else {
             $mensaje_error = "La contraseña no coincide";

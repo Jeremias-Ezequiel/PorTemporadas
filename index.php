@@ -6,6 +6,17 @@ $productoController = new ProductoController();
 $productoVistas = new ProductoViews();
 
 $seccion = $_GET['seccion'] ?? 'inicio';
+$tipo = $_POST['tipo'] ?? '';
+
+if ($tipo == "agregar") {
+    echo $_POST['nombre'];
+    $productoController->agregar($_POST['id'], $_POST['cantidad']);
+}
+
+if ($tipo == "eliminar") {
+    echo $_POST['nombre'];
+    $productoController->quitar($_POST['id'], $_POST['cantidad']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +33,7 @@ $seccion = $_GET['seccion'] ?? 'inicio';
         <img src="assets/LogoLetras.png" height="100px" alt="">
     </header>
     <nav class="main-nav">
-        <a id="cerrar-sesion" href="index.html">Cerrar Sesión</a>
+        <a id="cerrar-sesion" href="inicioSesion.php">Cerrar Sesión</a>
         <ul class="sec-nav">
             <li><a href="?">Ver Stock</a></li>
             <li><a href="?seccion=cargarProd">Cargar Producto</a></li>
@@ -35,8 +46,13 @@ $seccion = $_GET['seccion'] ?? 'inicio';
                 case 'inicio':
                     echo $productoVistas->mostrarProductos();
                     break;
-                case 'cargarProd':
-                    require_once './components/cargarProd.html';
+                case 'eliminar':
+                    $producto = $productoController->obtenerProducto(1);
+                    echo $productoVistas->formulario($_GET['seccion'], $producto['id']);
+                    break;
+                case 'agregar':
+                    $producto = $productoController->obtenerProducto($_POST['id']);
+                    echo $productoVistas->formulario($_GET['seccion'], $producto['id']);
                     break;
                 default:
                     echo "Página no encontrada";

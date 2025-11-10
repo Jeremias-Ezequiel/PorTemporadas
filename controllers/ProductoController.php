@@ -9,7 +9,8 @@ class ProductoController
 
     public function __construct()
     {
-        $this->con = new Database()->getCon();
+        $db = new Database();
+        $this->con = $db->getCon();
     }
 
     public function alta(Producto $producto)
@@ -43,15 +44,16 @@ class ProductoController
         }
     }
 
-    public function obtenerProducto($nombre)
+    public function obtenerProducto($id)
     {
-        $query = "SELECT * FROM producto WHERE nombre = :nombre";
+        $query = "SELECT * FROM producto WHERE id = :id";
 
         $data = [
-            ":nombre" => $nombre,
+            ":id" => $id,
         ];
 
         $stmt = $this->con->prepare($query);
+
         if ($stmt->execute($data)) {
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } else {
@@ -59,56 +61,54 @@ class ProductoController
         }
     }
 
-    public function agregar($nombre, $cantidad)
+    public function agregar($id, $cantidad)
     {
-        $producto = $this->obtenerProducto($nombre);
+        $producto = $this->obtenerProducto($id);
 
         if (!$producto) {
             return ["status" => "error", "message" => "El producto no se ha encontrado"];
         }
 
-        $query = "UPDATE producto SET cantidad = cantidad + :cantidad WHERE nombre = :nombre";
+        $query = "UPDATE producto SET cantidad = cantidad + :cantidad WHERE id = :id";
 
         $data = [
             ":cantidad" => $cantidad,
-            ":nombre" => $nombre,
+            ":id" => $id,
         ];
 
         $stmt = $this->con->prepare($query);
         if ($stmt->execute($data)) {
             if ($stmt->rowCount()) {
-                return ["status" => "succes", "message" => "Se han agregado $cantidad unidades al producto $nombre correctamente!"];
+                return ["status" => "succes", "message" => "Se han agregado $cantidad unidades correctamente!"];
             }
         } else {
             return ["status" => "error", "message" => "Ha ocurrido un error al agregar unidades al producto"];
         }
     }
 
-    public function quitar($nombre, $cantidad)
+    public function quitar($id, $cantidad)
     {
-        $producto = $this->obtenerProducto($nombre);
+        $producto = $this->obtenerProducto($id);
 
         if (!$producto) {
             return ["status" => "error", "message" => "El producto no se ha encontrado"];
         }
 
-        var_dump($producto);
-
         if ($cantidad > $producto['cantidad']) {
             return ["status" => "error", "message" => "No se puede eliminar más de la cantidad actual del producto"];
         }
 
-        $query = "UPDATE producto SET cantidad = cantidad - :cantidad WHERE nombre = :nombre";
+        $query = "UPDATE producto SET cantidad = cantidad - :cantidad WHERE id = :id";
 
         $data = [
             ":cantidad" => $cantidad,
-            ":nombre" => $nombre,
+            ":id" => $id,
         ];
 
         $stmt = $this->con->prepare($query);
         if ($stmt->execute($data)) {
             if ($stmt->rowCount()) {
-                return ["status" => "succes", "message" => "Se han eliminado $cantidad unidades al producto $nombre correctamente!"];
+                return ["status" => "succes", "message" => "Se han eliminado $cantidad unidades correctamente!"];
             }
         } else {
             return ["status" => "error", "message" => "Ha ocurrido un error al eliminar unidades del producto"];
