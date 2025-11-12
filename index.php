@@ -2,14 +2,9 @@
 
 session_start();
 
-if (!isset($_SESSION['correo'])) {
+if (!isset($_SESSION['apellido'])) {
     header('Location: inicioSesion.php');
 }
-
-$parte_a_eliminar = strstr($_SESSION['correo'], '@');
-$clean_user = str_replace($parte_a_eliminar, '', $_SESSION['correo']);
-
-echo $clean_user;
 
 require_once __DIR__ . "/controllers/ProductoController.php";
 
@@ -46,7 +41,7 @@ if ($tipo == "quitar") {
         <img src="assets/LogoLetras.png" height="100px" alt="">
     </header>
     <nav class="main-nav">
-        <a id="bienvenida" href="?">Bienvenido <?= $clean_user ?></a>
+        <a id="bienvenida" href="?">Bienvenido <?= $_SESSION['apellido'] ?></a>
         <a id="cerrar-sesion" href="inicioSesion.php">Cerrar Sesión</a>
         <ul class="sec-nav">
             <li><a href="?">Ver Stock</a></li>

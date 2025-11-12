@@ -11,7 +11,7 @@ if (isset($_POST['iniciar'])) {
     } else {
         if ($_POST['pass'] === $user['password']) {
             session_start();
-            $_SESSION['correo'] = $_POST['email'];
+            $_SESSION['apellido'] = $user['apellido'];
             header('Location: index.php');
             die();
         } else {

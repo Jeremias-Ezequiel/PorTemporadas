@@ -13,7 +13,7 @@ class UsuarioController
         $this->con = $db->getCon();
     }
 
-    public function registrar(Usuario $user)
+    public function  registrar(Usuario $user)
     {
 
         $userExist = $this->obtenerUsuario($user->getEmail());
@@ -42,7 +42,7 @@ class UsuarioController
 
     public function obtenerUsuario($email)
     {
-        $query = "SELECT password FROM usuario WHERE email = :email;";
+        $query = "SELECT apellido,password FROM usuario WHERE email = :email;";
 
         $stmt = $this->con->prepare($query);
         $data = [
