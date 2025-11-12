@@ -134,7 +134,7 @@ if ($tipo == "quitar") {
                             <h4>Producto: <?= $producto['nombre'] ?></h4>
                             <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
                             <input type="number" min="0" required name="cantidad">
-                            <button type="submit" name="tipo" value="quitar">Agregar</button>
+                            <button type="submit" name="tipo" value="quitar">Quitar</button>
                         </form>
                     </div>
                 <?php
