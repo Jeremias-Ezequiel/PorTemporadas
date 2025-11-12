@@ -241,10 +241,22 @@ a{
     background-color: var(--cyan-light);
     color: var(--black);
     position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.main-nav #bienvenida{
+    background-color: var(--cyan-light);
+    color: var(--black);
+    position: absolute;
     top: 10px;
     left: 10px;
     padding: 5px;
     border-radius: 10px;
+    text-align: center;
+    margin: 0px 10px;
 }
 
 .sec-nav{
@@ -348,6 +360,7 @@ td,th{
     text-align: center;
     border: 2px solid var(--white);
     padding: 10px;
+    color: var(--white);
 }
 
 table button{
@@ -429,4 +442,27 @@ table button{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.actualizar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actualizar form{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.actualizar form button{
+    background-color: var(--cyan-light);
+    color: var(--black);
+    padding: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

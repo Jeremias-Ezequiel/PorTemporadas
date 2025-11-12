@@ -9,8 +9,9 @@ if (isset($_POST['iniciar'])) {
     if (!$user) {
         $mensaje_error = "El usuario no existe!";
     } else {
-        var_dump($user);
         if ($_POST['pass'] === $user['password']) {
+            session_start();
+            $_SESSION['correo'] = $_POST['email'];
             header('Location: index.php');
             die();
         } else {

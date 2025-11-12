@@ -1,4 +1,16 @@
 <?php
+
+session_start();
+
+if (!isset($_SESSION['correo'])) {
+    header('Location: inicioSesion.php');
+}
+
+$parte_a_eliminar = strstr($_SESSION['correo'], '@');
+$clean_user = str_replace($parte_a_eliminar, '', $_SESSION['correo']);
+
+echo $clean_user;
+
 require_once __DIR__ . "/controllers/ProductoController.php";
 
 $productoController = new ProductoController();
@@ -25,7 +37,7 @@ if ($tipo == "quitar") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeTemporada</title>
+    <title>PorTemporada</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -34,6 +46,7 @@ if ($tipo == "quitar") {
         <img src="assets/LogoLetras.png" height="100px" alt="">
     </header>
     <nav class="main-nav">
+        <a id="bienvenida" href="?">Bienvenido <?= $clean_user ?></a>
         <a id="cerrar-sesion" href="inicioSesion.php">Cerrar Sesión</a>
         <ul class="sec-nav">
             <li><a href="?">Ver Stock</a></li>
@@ -120,26 +133,30 @@ if ($tipo == "quitar") {
                     // Obtener Producto
                     $producto = $productoController->obtenerProducto($_GET['producto']);
                     ?>
-                    <form action="" autocomplete="off">
-                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                        <h4>Producto: <?= $producto['nombre'] ?></h4>
-                        <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
-                        <input type="number" min="0" required name="cantidad">
-                        <button type="submit" name="tipo" value="quitar">Agregar</button>
-                    </form>
+                    <div class="actualizar">
+                        <form action="" autocomplete="off">
+                            <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                            <h4>Producto: <?= $producto['nombre'] ?></h4>
+                            <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
+                            <input type="number" min="0" required name="cantidad">
+                            <button type="submit" name="tipo" value="quitar">Agregar</button>
+                        </form>
+                    </div>
                 <?php
                     break;
                 case 'agregar':
                     // Obtener Producto
                     $producto = $productoController->obtenerProducto($_GET['producto']);
                 ?>
-                    <form action="" autocomplete="off">
-                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
-                        <h4>Producto: <?= $producto['nombre'] ?></h4>
-                        <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
-                        <input type="number" step="0.01" min="0" max="100" required name="cantidad">
-                        <button type="submit" name="tipo" value="agregar">Agregar</button>
-                    </form>
+                    <div class="actualizar">
+                        <form action="" autocomplete="off">
+                            <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                            <h4>Producto: <?= $producto['nombre'] ?></h4>
+                            <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
+                            <input type="number" step="0.01" min="0" max="100" required name="cantidad">
+                            <button type="submit" name="tipo" value="agregar">Agregar</button>
+                        </form>
+                    </div>
                 <?php
                     break;
                 case 'cargarProd':
