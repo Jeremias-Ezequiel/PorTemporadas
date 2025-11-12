@@ -67,43 +67,44 @@ if ($tipo == "quitar") {
                     } else {
 
                     ?>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Precio</th>
-                                    <th>Cantidad</th>
-                                    <th>Opcion</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form action="?" method="get">
-                                    <?php
-                                    foreach ($productos as $key => $producto) {
-                                    ?>
-                                        <tr>
-                                            <td><?= $producto['id'] ?></td>
-                                            <td><?= $producto['nombre'] ?></td>
-                                            <td>
-                                                $<?= $producto['precio'] ?>
-                                            </td>
-                                            <td><?= $producto['cantidad'] ?></td>
-                                            <td><input type="radio" name="producto" value="<?= $producto['id'] ?>" required></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
+                        <div class="tabla-productos">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td colspan="5" style="text-align: center;">
-                                            <button name="seccion" value="quitar" type="submit">Quitar</button>
-                                            <button name="seccion" value="agregar" type="submit">Agregar</button>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Opcion</th>
                                     </tr>
-                                </form>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <form action="?" method="get">
+                                        <?php
+                                        foreach ($productos as $key => $producto) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $producto['id'] ?></td>
+                                                <td><?= $producto['nombre'] ?></td>
+                                                <td>
+                                                    $<?= $producto['precio'] ?>
+                                                </td>
+                                                <td><?= $producto['cantidad'] ?></td>
+                                                <td><input type="radio" name="producto" value="<?= $producto['id'] ?>" required></td>
+                                            </tr>
+                                        <?php
+                                        }
+                                        ?>
+                                        <tr>
+                                            <td colspan="5" style="text-align: center;">
+                                                <button name="seccion" value="quitar" type="submit">Quitar</button>
+                                                <button name="seccion" value="agregar" type="submit">Agregar</button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                </tbody>
+                            </table>
+                        </div>
                     <?php
 
                         if (isset($mensaje)) {

@@ -424,3 +424,9 @@ table button{
     margin: 0px 10px;
     border-radius: 5px;
 }
+
+.tabla-productos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
