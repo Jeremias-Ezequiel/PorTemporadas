@@ -121,8 +121,15 @@ a{
     width: auto;
 }
 
-.form-container img{
-    height: 200px;
+.image-logo{
+    position:absolute;
+    left: 0;
+    top: 50%;
+    margin: 0px 20px;
+}
+
+.image-logo img{
+    height: 150px;
     
      filter: 
         drop-shadow(0 0 8px rgba(0, 188, 212, 0.7)) /* Brillo cian, sigue la forma del logo */
@@ -253,7 +260,10 @@ a{
     grid-area: main;
     display: grid;
     place-content: center;
-
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("assets/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: var(--white);
 }
 
 .main-footer{
@@ -314,6 +324,7 @@ a{
     border-radius: 10px;
     text-align: center;
     text-transform: uppercase;
+    margin: 20px 0px;
 }
 
 .msg-exito{
@@ -325,4 +336,91 @@ a{
     text-align: center;
     border-radius: 10px;
     text-transform: uppercase;
+    margin: 20px 0px;
+}
+
+table{
+    border-collapse: collapse;
+    width: 700px;
+}
+
+td,th{
+    text-align: center;
+    border: 2px solid var(--white);
+    padding: 10px;
+}
+
+table button{
+    padding: 4px;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-style: none;
+    font-weight: bold;
+    background-color: var(--cyan-light);
+    color: var(--black);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.form-cargarProducto{
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: var(--blue-light);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.form-cargarProducto div{
+    display: grid;
+    grid-template-columns: 100px 1fr;
+}
+
+.form-cargarProducto button{
+    padding: 2px;
+    font-size: 15px;
+    text-transform: uppercase;
+    background-color: var(--white);
+    color: var(--black);
+    border-style: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.busqueda{
+    display: flex;
+    margin: 20px 0px;   
+    justify-content: center;
+    align-items: center;
+}
+
+.busqueda label{
+    font-size: 20px; 
+}
+
+.busqueda input{
+    border-style: none;
+    padding: 5px;
+}
+
+.busqueda button{
+    padding: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.busqueda a{
+    background-color: var(--white);
+    padding: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: none;
+    color: var(--black);
+    margin: 0px 10px;
+    border-radius: 5px;
 }

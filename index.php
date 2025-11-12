@@ -1,21 +1,22 @@
 <?php
 require_once __DIR__ . "/controllers/ProductoController.php";
-require_once __DIR__ . "/views/ProductoViews.php";
 
 $productoController = new ProductoController();
-$productoVistas = new ProductoViews();
 
-$seccion = $_GET['seccion'] ?? 'inicio';
-$tipo = $_POST['tipo'] ?? '';
-
-if ($tipo == "agregar") {
-    echo $_POST['nombre'];
-    $productoController->agregar($_POST['id'], $_POST['cantidad']);
+if (isset($_POST['crear'])) {
+    $mensaje = $productoController->alta($_POST['nombre'], $_POST['precio'], $_POST['cantidad']);
 }
 
-if ($tipo == "eliminar") {
-    echo $_POST['nombre'];
-    $productoController->quitar($_POST['id'], $_POST['cantidad']);
+$seccion = $_GET['seccion'] ?? 'inicio';
+$tipo = $_GET['tipo'] ?? '';
+
+
+if ($tipo == "agregar") {
+    $mensaje = $productoController->agregar($_GET['id'], $_GET['cantidad']);
+}
+
+if ($tipo == "quitar") {
+    $mensaje = $productoController->quitar($_GET['id'], $_GET['cantidad']);
 }
 ?>
 <!DOCTYPE html>
@@ -44,15 +45,121 @@ if ($tipo == "eliminar") {
         if (isset($seccion)) {
             switch ($seccion) {
                 case 'inicio':
-                    echo $productoVistas->mostrarProductos();
+                    if (isset($_GET['busqueda'])) {
+                        $productos = $productoController->searchByName($_GET['buscar']);
+                    } else {
+                        $productos = $productoController->obtenerProductos();
+                    }
+        ?>
+                    <div class="busqueda">
+                        <form action="" method="get" autocomplete="off">
+                            <label for="buscar">Buscar por nombre: </label>
+                            <input type="text" required id="buscar" name="buscar">
+                            <button type="submit" name="busqueda">Buscar</button>
+                        </form>
+                        <a href="?">Ver todo</a>
+                    </div>
+
+                    <?php
+
+                    if (isset($productos) && isset($productos['status'])) {
+                        echo "<div class='msg-error'> $productos[message] </div>";
+                    } else {
+
+                    ?>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Opcion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form action="?" method="get">
+                                    <?php
+                                    foreach ($productos as $key => $producto) {
+                                    ?>
+                                        <tr>
+                                            <td><?= $producto['id'] ?></td>
+                                            <td><?= $producto['nombre'] ?></td>
+                                            <td>
+                                                $<?= $producto['precio'] ?>
+                                            </td>
+                                            <td><?= $producto['cantidad'] ?></td>
+                                            <td><input type="radio" name="producto" value="<?= $producto['id'] ?>" required></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td colspan="5" style="text-align: center;">
+                                            <button name="seccion" value="quitar" type="submit">Quitar</button>
+                                            <button name="seccion" value="agregar" type="submit">Agregar</button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            </tbody>
+                        </table>
+                    <?php
+
+                        if (isset($mensaje)) {
+                            if ($mensaje['status'] === 'error') {
+                                echo "<div class='msg-error'> {$mensaje['message']} </div>";
+                            } else if ($mensaje['status'] === 'succes') {
+                                echo "<div class='msg-exito'> {$mensaje['message']} </div>";
+                            }
+                        }
+                    }
                     break;
-                case 'eliminar':
-                    $producto = $productoController->obtenerProducto(1);
-                    echo $productoVistas->formulario($_GET['seccion'], $producto['id']);
+                case 'quitar':
+                    // Obtener Producto
+                    $producto = $productoController->obtenerProducto($_GET['producto']);
+                    ?>
+                    <form action="" autocomplete="off">
+                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                        <h4>Producto: <?= $producto['nombre'] ?></h4>
+                        <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
+                        <input type="number" min="0" required name="cantidad">
+                        <button type="submit" name="tipo" value="quitar">Agregar</button>
+                    </form>
+                <?php
                     break;
                 case 'agregar':
-                    $producto = $productoController->obtenerProducto($_POST['id']);
-                    echo $productoVistas->formulario($_GET['seccion'], $producto['id']);
+                    // Obtener Producto
+                    $producto = $productoController->obtenerProducto($_GET['producto']);
+                ?>
+                    <form action="" autocomplete="off">
+                        <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+                        <h4>Producto: <?= $producto['nombre'] ?></h4>
+                        <h5>Cantidad: <?= $producto['cantidad'] ?></h5>
+                        <input type="number" step="0.01" min="0" max="100" required name="cantidad">
+                        <button type="submit" name="tipo" value="agregar">Agregar</button>
+                    </form>
+                <?php
+                    break;
+                case 'cargarProd':
+                ?>
+                    <form action="?" method="post" class="form-cargarProducto" autocomplete="off">
+                        <div>
+                            <label for="nombre">Nombre: </label>
+                            <input type="text" min="0" required name="nombre" id="nombre">
+                        </div>
+                        <div>
+                            <label for="precio">Precio: </label>
+                            <input type="number" min="0" required name="precio" id="precio">
+                        </div>
+                        <div>
+                            <label for="cantidad">Cantidad: </label>
+                            <input type="number" min="0" max="100" required name="cantidad" id="cantidad">
+                        </div>
+                        <button type="reset">Cancelar</button>
+                        <button type="submit" name="crear">Agregar</button>
+                    </form>
+        <?php
                     break;
                 default:
                     echo "Página no encontrada";

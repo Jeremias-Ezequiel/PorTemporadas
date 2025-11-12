@@ -13,15 +13,22 @@ class ProductoController
         $this->con = $db->getCon();
     }
 
-    public function alta(Producto $producto)
+    public function alta($nombre, $precio, $cantidad)
     {
-        $query = "INSERT INTO producto (nombre ,cantidad ,stock_minimo) VALUES (:nombre,:cantidad,:stock);";
+
+        $producto = $this->getByName($nombre);
+
+        if ($producto) {
+            return ["status" => "error", "message" => "No se puede volver a crear un producto que ya existe en la lista"];
+        }
+
+        $query = "INSERT INTO producto (nombre ,precio ,cantidad) VALUES (:nombre,:precio, :cantidad);";
 
         $stmt = $this->con->prepare($query);
         $data = [
-            ":nombre" => $producto->getNombre(),
-            ":cantidad" => $producto->getCantidad(),
-            ":stock" => $producto->getStockMinimo(),
+            ":nombre" => $nombre,
+            ":precio" => $precio,
+            ":cantidad" => $cantidad,
         ];
 
         if ($stmt->execute($data)) {
@@ -50,6 +57,23 @@ class ProductoController
 
         $data = [
             ":id" => $id,
+        ];
+
+        $stmt = $this->con->prepare($query);
+
+        if ($stmt->execute($data)) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+
+    public function getByName($nombre)
+    {
+        $query = "SELECT * FROM producto WHERE nombre = :nombre;";
+
+        $data = [
+            ":nombre" => $nombre,
         ];
 
         $stmt = $this->con->prepare($query);
@@ -112,6 +136,27 @@ class ProductoController
             }
         } else {
             return ["status" => "error", "message" => "Ha ocurrido un error al eliminar unidades del producto"];
+        }
+    }
+
+    public function searchByName($name)
+    {
+        $query = "SELECT * FROM producto WHERE nombre LIKE :name;";
+
+        $data = [
+            ":name" => "%" . $name . "%",
+        ];
+
+        $stmt = $this->con->prepare($query);
+
+        if ($stmt->execute($data)) {
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return ["status" => "error", "message" => "No se han encontrado coincidencias con el nombre solicitado"];
+            }
+        } else {
+            return ["status" => "error", "message" => "Ha ocurrido un error al realizar la consulta por nombres"];
         }
     }
 }

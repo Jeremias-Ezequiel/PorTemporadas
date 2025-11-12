@@ -18,6 +18,9 @@ if (isset($_POST['iniciar'])) {
         }
     }
 }
+if (isset($_GET['user'])) {
+    $mensaje = "<p class='msg-exito'>El usuario ha sido creado con exito</p>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,8 +56,8 @@ if (isset($_POST['iniciar'])) {
                 <a class="nav-button" href="registro.php">Registrarse</a>
             </section>
 
+            <div class="image-logo"><img src="assets/logo1.png" alt="PorTemporadas Logo"></div>
             <section class="form-container">
-                <legend><img src="assets/logo1.png" alt="PorTemporadas Logo"></legend>
                 <form action="?" method="post" class="form" autocomplete="off">
                     <div class="form-input">
                         <label for="email">Email:</label>
@@ -71,6 +74,9 @@ if (isset($_POST['iniciar'])) {
                     ?>
                         <p class="msg-error"><?= $mensaje_error ?></p>
                     <?php
+                    }
+                    if (isset($mensaje)) {
+                        echo $mensaje;
                     }
                     ?>
                 </form>

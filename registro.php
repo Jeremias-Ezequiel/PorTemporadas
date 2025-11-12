@@ -13,7 +13,7 @@ if (isset($_POST['registrar'])) {
             $resultado = $usuarioController->registrar($user);
 
             if ($resultado['status'] == 'success') {
-                $mensaje_exito = $resultado['message'];
+                header("Location: inicioSesion.php?user=created");
             }
 
             if ($resultado['status'] == 'error') {
@@ -60,8 +60,8 @@ if (isset($_POST['registrar'])) {
             <a class="nav-button" href="registro.php">Registrarse</a>
         </section>
 
+        <div class="image-logo"><img src="assets/logo1.png" alt="PorTemporadas Logo"></div>
         <section class="form-container">
-            <legend><img src="assets/logo1.png" alt="PorTemporadas Logo"></legend>
             <form action="?" method="post" class="form" autocomplete="off">
                 <div class="form-input">
                     <label for="name">Nombre:</label>
