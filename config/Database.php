@@ -2,6 +2,7 @@
 
 class Database
 {
+    private static $instance = null;
     private $server = "localhost";
     private $user = "root";
     private $pass = "abcdef2020";
@@ -19,6 +20,15 @@ class Database
         } catch (PDOException $e) {
             die("Error en el servidor: " . $e->getMessage());
         }
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function getCon()
